@@ -18,9 +18,10 @@ output/
 artifacts/live-providers/
 artifacts/proof-rescue/
 
-# Internal agent/pipeline files
+# Local tooling
 CLAUDE.md
 AGENTS.md
+.agents/
 
 # OS/editor noise
 .DS_Store
