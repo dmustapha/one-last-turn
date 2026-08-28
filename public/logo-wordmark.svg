@@ -1,0 +1,16 @@
+<svg width="1200" height="320" viewBox="0 0 1200 320" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One Last Turn">
+  <defs>
+    <linearGradient id="olt3" x1="70" y1="240" x2="250" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <!-- mark -->
+  <line x1="160" y1="70" x2="160" y2="250" stroke="#22d3ee" stroke-width="4" stroke-linecap="round" stroke-dasharray="1 18" opacity="0.5"/>
+  <circle cx="108" cy="228" r="13" fill="#3b82f6"/>
+  <path d="M108 215 L108 150 A52 52 0 0 1 212 150 L212 215" stroke="url(#olt3)" stroke-width="24" stroke-linecap="round" fill="none"/>
+  <path d="M212 250 L196 220 L228 220 Z" fill="#22d3ee"/>
+  <!-- wordmark -->
+  <text x="300" y="150" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-size="86" font-weight="800" fill="#f0f5ff" letter-spacing="-1">One Last Turn</text>
+  <text x="302" y="212" font-family="'JetBrains Mono', Menlo, monospace" font-size="30" font-weight="600" fill="#60a5fa" letter-spacing="4">ONE APPEAL · ONE MEMORY · ONE TURN</text>
+</svg>

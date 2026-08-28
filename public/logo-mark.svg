@@ -1,0 +1,16 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One Last Turn mark">
+  <defs>
+    <linearGradient id="olt" x1="140" y1="380" x2="372" y2="150" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+  <!-- process boundary the memory crosses -->
+  <line x1="256" y1="120" x2="256" y2="392" stroke="#22d3ee" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.45"/>
+  <!-- the one-time origin token -->
+  <circle cx="176" cy="356" r="20" fill="#3b82f6"/>
+  <!-- the turn: up, over the boundary, and back down once -->
+  <path d="M176 336 L176 236 A80 80 0 0 1 336 236 L336 336" stroke="url(#olt)" stroke-width="36" stroke-linecap="round" fill="none"/>
+  <!-- arrowhead: returns, then stops -->
+  <path d="M336 388 L312 344 L360 344 Z" fill="#22d3ee"/>
+</svg>

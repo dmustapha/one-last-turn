@@ -1,4 +1,8 @@
-# One Last Turn
+<p align="center">
+  <img src="public/logo.svg" width="128" alt="One Last Turn logo" />
+</p>
+
+<h1 align="center">One Last Turn</h1>
 
 > A finite, post-appeal community handoff. A persistent Minds agent carries a private moderation strategy across two separate processes and completes exactly one controlled returning-member response, without ever re-exposing the private rules.
 
