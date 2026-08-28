@@ -1,0 +1,27 @@
+# Secrets
+.env*
+!.env.example
+.vercel
+
+# Dependencies / build
+node_modules/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
+tsconfig.tsbuildinfo
+output/
+
+# Raw provider evidence — owner-only, never publish
+artifacts/live-providers/
+artifacts/proof-rescue/
+
+# Internal agent/pipeline files
+CLAUDE.md
+AGENTS.md
+
+# OS/editor noise
+.DS_Store
+*.swp

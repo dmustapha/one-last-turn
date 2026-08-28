@@ -1,0 +1,31 @@
+Task 01 — strict single-package application and quality gates
+Date: 2026-08-26
+Branch: feat/one-last-turn-proof-rescue
+
+RED
+Command: npm run test:unit -- tests/unit/config/env.test.ts
+Result: 1 file failed; 7 tests failed and 1 passed.
+Expected cause: loadEnv deliberately reported that environment validation was not implemented.
+
+GREEN
+Command: npm run test:unit -- tests/unit/config/env.test.ts
+Result: 1 file passed; 8 tests passed.
+
+QUALITY GATES
+Command: npm run typecheck
+Result: PASS.
+
+Command: npm run lint
+Result: PASS with zero warnings.
+
+Command: npm run build
+Result: PASS; Next.js 16.3.3 produced static / and /_not-found routes.
+
+Command: npm audit --audit-level=moderate
+Result: PASS; zero vulnerabilities.
+
+NOTES
+- Node runtime: 24.10.0; package engine floor remains Node 22.
+- TypeScript is pinned to 6.0.3 and ESLint to 9.39.5 because the current Next.js 16.3.3 lint dependencies do not yet accept TypeScript 7 or ESLint 10.
+- Drizzle Kit is intentionally deferred to Task 3 because its latest stable release pulls a deprecated vulnerable loader. Explicit migrations remain the source of truth.
+- All live integrations and the contact lane default off. No credentials were used.

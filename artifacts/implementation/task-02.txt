@@ -1,0 +1,44 @@
+Task 02 — lane-owned domain state machines and independence invariants
+Date: 2026-08-26
+Branch: feat/one-last-turn-proof-rescue
+
+RED
+Initial command: npm run test:unit -- tests/unit/domain
+Initial result: four suites failed because the production workflow modules did not exist.
+
+Behavioral RED command: npm run test:unit -- tests/unit/domain
+Behavioral result: 45 assertions failed and 21 passed against deliberately unimplemented reducers.
+Expected causes: access/contact transitions, lane-safe event targets, and terminal errors were not implemented.
+
+Review RED command: npm run test:unit -- tests/unit/domain/access-workflow.test.ts tests/unit/domain/contact-workflow.test.ts tests/unit/domain/terminal-state.test.ts
+Review result: four assertions failed for wrong applied role, forged event reference, and both response-first abort/report races.
+
+Type-contract RED command: npm run typecheck
+Type-contract result: access and contact outbox source IDs were not lane-specific.
+
+GREEN
+Command: npm run test:unit -- tests/unit/domain
+Result: 6 files passed; 74 tests passed.
+
+Command: npm run typecheck
+Result: PASS.
+
+Command: npm run lint
+Result: PASS with zero warnings.
+
+INDEPENDENT REVIEW
+- First review found blocking access-reference, race-order, outbox-lane, and role-mismatch gaps.
+- Each gap received a failing test or type assertion before its fix.
+- Re-review found no remaining blocking Task 2 issue.
+
+BOUNDARIES PROVED
+- Every contact state leaves identical operator-owned general access unchanged.
+- Contact events cannot target the general project-room ACL.
+- Returning members receive one generic unavailable-contact projection.
+- Terminal contact states cannot reopen; abort/report overrides a response in either ordering.
+- Access application rejects a provider role that differs from the authorized target.
+- Contact invitation requires a shaped, validated access_applied event reference.
+- Access and contact outbox jobs require different branded source-event IDs.
+
+DEFERRED TO TASK 3
+The database transaction must prove the referenced access event exists and matches tenant, case, aggregate version, and committed event content. Task 2 validates the domain shape; it does not claim database commitment.

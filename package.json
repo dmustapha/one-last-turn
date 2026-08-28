@@ -1,0 +1,48 @@
+{
+  "_file": "package.json",
+  "name": "one-last-turn",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:unit": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration/db/demo-case-repository.test.ts tests/integration/db/demo-case-concurrency.test.ts --no-file-parallelism",
+    "test:contract": "vitest run tests/contract",
+    "test:security": "vitest run tests/security",
+    "test:fault": "vitest run tests/fault-injection",
+    "test:a11y": "vitest run tests/accessibility",
+    "test:e2e": "playwright test",
+    "test:all": "npm run test:unit && npm run test:integration && npm run test:contract && npm run test:security && npm run test:fault && npm run test:a11y",
+    "preflight:live-env": "tsx scripts/assert-live-env-preflight.ts",
+    "db:migrate": "tsx scripts/migrate.ts",
+    "seed:demo": "tsx scripts/seed-demo.ts",
+    "case:strategy": "tsx scripts/run-case-strategy.ts",
+    "case:response": "tsx scripts/run-case-response.ts",
+    "case:command": "tsx scripts/run-case-command.ts",
+    "evidence:manifest": "tsx scripts/write-live-manifest.ts",
+    "evidence:timing": "tsx scripts/write-demo-timing.ts",
+    "rehearsal:mark": "tsx scripts/capture-rehearsal-marker.ts"
+  },
+  "dependencies": {
+    "@animocabrands/minds-client-lib": "0.1.4", "@clerk/nextjs": "7.8.2",
+    "drizzle-orm": "0.45.2", "next": "16.3.3", "pino": "10.3.1",
+    "postgres": "3.4.9", "react": "19.2.8", "react-dom": "19.2.8",
+    "resend": "6.24.0", "server-only": "0.0.1", "zod": "4.4.3"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0", "@playwright/test": "1.62.1",
+    "@tailwindcss/postcss": "4.3.3", "@testing-library/jest-dom": "7.0.1",
+    "@testing-library/react": "16.3.2", "@testing-library/user-event": "14.6.6",
+    "@types/node": "26.3.0", "@types/react": "19.2.18", "@types/react-dom": "19.2.5",
+    "@vitest/coverage-v8": "4.1.11", "eslint": "9.39.5", "eslint-config-next": "16.3.3",
+    "eslint-plugin-boundaries": "7.2.0", "jsdom": "29.1.1", "tailwindcss": "4.3.3",
+    "testcontainers": "12.1.0", "tsx": "4.23.12", "typescript": "6.0.3", "vitest": "4.1.11"
+  }
+}

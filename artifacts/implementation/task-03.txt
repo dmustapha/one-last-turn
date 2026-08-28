@@ -1,0 +1,50 @@
+Task 03 — PostgreSQL schema, migrations, and transactional outbox
+Date: 2026-08-26
+Branch: feat/one-last-turn-proof-rescue
+
+RED
+- Migration smoke test initially failed because no migrations existed.
+- Transaction suites initially failed because the database client, repositories,
+  and transaction runner did not exist.
+- Review REDs then proved missing tenant relationships, actor/case policy,
+  eligibility evidence, exact event/job contracts, current access provenance,
+  binary request digests, and both abort race orders.
+- A parallel rerun exposed PostgreSQL bootstrap readiness as a flaky test
+  precondition; the harness now waits for the second ready log and verifies the
+  target database with bounded retries.
+
+GREEN
+- Eight ordered SQL migrations build 28 product tables on PostgreSQL 17.
+- A second migration pass applies zero files through migration bookkeeping.
+- Every tenant-owned concrete relation uses tenant-aware foreign keys.
+- Outbox provenance is enforced by a composite tenant/event/lane foreign key.
+- Applied access requires matching authorization and provider access-event
+  evidence for the same tenant and case.
+- Transaction commands atomically lock, authorize, version-check, update,
+  append one event, enqueue the exact permitted job, and store one replay result.
+- Provider calls remain outside the transaction.
+
+INDEPENDENT REVIEW
+- Correctness and security reviews found seven initial persistence blockers and
+  three final authorization/provenance blockers.
+- Each blocker received a failing integration or metadata assertion before its
+  fix.
+- Final narrow correctness and security re-reviews found no remaining Task 3
+  blocker.
+
+VERIFICATION AT HARDENED CHECKPOINT
+- Database integration: 3 files, 46 tests passed through the serial CI script.
+- Unit domain tests: 6 files, 74 tests passed.
+- TypeScript: PASS.
+- ESLint: PASS with zero warnings.
+- Next.js production build: PASS.
+- npm audit: zero vulnerabilities.
+- git diff --check: PASS.
+- Canonical PostgreSQL dump: artifacts/implementation/task-03-schema.sql
+
+DEFERRED BY DESIGN
+- Clerk-derived identity, capability exchange, participant grants, and endpoint
+  action scopes begin in Task 4.
+- Worker leases, provider reconciliation, and cancellation checks begin in the
+  worker task.
+- Live credentials remain prohibited until Task 8.
