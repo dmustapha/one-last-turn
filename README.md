@@ -4,9 +4,7 @@
 
 **Live demo:** https://one-last-turn.vercel.app · **Health:** https://one-last-turn.vercel.app/api/health
 
-Built for **Creative Minds Jam #1** — Moderation and Community Assistance track.
-
-![One Last Turn](docs/images/landing.png)
+Built for **Creative Minds Jam #1**, Moderation and Community Assistance track.
 
 ## What Is One Last Turn?
 
