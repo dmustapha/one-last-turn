@@ -29,3 +29,6 @@ AGENTS.md
 
 # Demo video tooling (hosted on YouTube)
 video/
+
+# demo video v2 build workspace (node_modules + renders + footage; video ships via YouTube)
+video2/
