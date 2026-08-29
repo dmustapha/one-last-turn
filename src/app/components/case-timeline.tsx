@@ -32,11 +32,13 @@ export function CaseTimeline({ view }: { view: DemoCaseView }) {
   return <ol className="timeline" aria-label="Case timeline">{stages.map(([state, label, phase]) => {
     const index = order.indexOf(state);
     const status = stageStatus(view, index);
+    // A closed case's terminal receipt step stays the aria-current step, but it is sealed, not in progress.
+    const tick = status === "current" && view.state === "closed" ? "Sealed" : tickLabel[status];
     return <li key={state} data-status={status} data-phase={phase}
       aria-current={status === "current" ? "step" : undefined}>
       <span className="idx">{String(index).padStart(2, "0")}</span>
       <strong>{label}</strong>
-      <span className="tick">{tickLabel[status]}</span>
+      <span className="tick">{tick}</span>
     </li>;
   })}</ol>;
 }
