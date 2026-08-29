@@ -177,7 +177,10 @@ export async function executeMindWork<T>(input: {
     }
   }
   try {
-    const anchor = before[before.length - 1];
+    // History is newest-first, so before[0] is the most recent row. Anchoring here makes
+    // waitForReply wait for a reply strictly newer than the last known message (correct for
+    // resumed Process B). The widened waitForTerminalRows poll below covers slow replies.
+    const anchor = before[0];
     await input.transport.waitForReply({
       alias: input.alias, sentMessageText: input.prompt,
       ...(anchor ? { afterFingerprint: anchor.fingerprint } : {}), timeoutMs: 180_000,

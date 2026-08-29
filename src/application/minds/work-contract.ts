@@ -80,7 +80,10 @@ function strategyFromProse(value: string): StrategyArtifact {
   let responsePlan = sentences.slice(1).map((s) => clampText(s, 240)).filter((s) => s.length >= 5).slice(0, 5);
   if (responsePlan.length < 2) {
     const all = sentences.map((s) => clampText(s, 240)).filter((s) => s.length >= 5).slice(0, 5);
-    responsePlan = all.length >= 2 ? all : [clampText(clean, 240), clampText(clean.slice(240) || clean, 240)];
+    // When the Mind gives fewer than two usable sentences, keep its content as the first
+    // step and add one app-owned safe default rather than duplicating the same string.
+    responsePlan = all.length >= 2 ? all
+      : [clampText(sentences[0] ?? clean, 240), "Hold the agreed boundary and keep the reply brief and factual."];
   }
   return { riskSummary, responsePlan, safeScope: SAFE_SCOPE };
 }
@@ -96,12 +99,26 @@ function responseFromProse(value: string): ResponseArtifact {
   };
 }
 
+// Classify prose-mapping failures instead of leaking a raw ZodError (which would degrade to
+// the generic STRATEGY_FAILED / RESPONSE_FAILED bucket): too-short replies keep their code,
+// anything else the mapping cannot satisfy becomes MIND_ARTIFACT_INVALID_JSON.
+function classifyMappingError(error: unknown): Error {
+  if (error instanceof Error && error.message === "MIND_ARTIFACT_TOO_SHORT") return error;
+  return new Error("MIND_ARTIFACT_INVALID_JSON");
+}
+
 export function parseStrategyArtifact(value: string): StrategyArtifact {
-  return tryJsonArtifact(strategyArtifactSchema, value) ?? strategyArtifactSchema.parse(strategyFromProse(value));
+  const asJson = tryJsonArtifact(strategyArtifactSchema, value);
+  if (asJson) return asJson;
+  try { return strategyArtifactSchema.parse(strategyFromProse(value)); }
+  catch (error) { throw classifyMappingError(error); }
 }
 
 export function parseResponseArtifact(value: string): ResponseArtifact {
-  return tryJsonArtifact(responseArtifactSchema, value) ?? responseArtifactSchema.parse(responseFromProse(value));
+  const asJson = tryJsonArtifact(responseArtifactSchema, value);
+  if (asJson) return asJson;
+  try { return responseArtifactSchema.parse(responseFromProse(value)); }
+  catch (error) { throw classifyMappingError(error); }
 }
 
 export function strategyPrompt(): string {

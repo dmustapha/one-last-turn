@@ -1,4 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="16" fill="#211c18"/>
-  <path d="M19 18h26v7H27v7h15v7H27v7h18v7H19z" fill="#f4e8d6"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="One Last Turn">
+  <defs>
+    <linearGradient id="i" x1="22" y1="46" x2="42" y2="46" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#42604f"/>
+      <stop offset="1" stop-color="#a74f32"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#17231d"/>
+  <path d="M22 46 L22 30 A10 10 0 0 1 42 30 L42 44" stroke="url(#i)" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <circle cx="22" cy="46" r="3.4" fill="#42604f"/>
+  <path d="M42 50 L38 43 L46 43 Z" fill="#a74f32"/>
 </svg>

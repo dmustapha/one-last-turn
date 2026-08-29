@@ -108,4 +108,14 @@ describe("tolerant Mind artifact extraction", () => {
     expect(() => parseStrategyArtifact("   ")).toThrow();
     expect(() => parseResponseArtifact("")).toThrow();
   });
+
+  it("does not emit duplicate plan steps for a single-sentence reply", () => {
+    const a = parseStrategyArtifact("The returning member may reopen the old dispute again");
+    expect(a.responsePlan.length).toBeGreaterThanOrEqual(2);
+    expect(new Set(a.responsePlan).size).toBe(a.responsePlan.length);
+    a.responsePlan.forEach((step) => {
+      expect(step.length).toBeGreaterThanOrEqual(5);
+      expect(step.length).toBeLessThanOrEqual(240);
+    });
+  });
 });

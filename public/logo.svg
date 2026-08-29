@@ -1,13 +1,13 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One Last Turn">
   <defs>
-    <linearGradient id="olt1" x1="140" y1="380" x2="372" y2="150" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#3b82f6"/>
-      <stop offset="1" stop-color="#22d3ee"/>
+    <linearGradient id="olt-turn" x1="176" y1="356" x2="336" y2="356" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#42604f"/>
+      <stop offset="1" stop-color="#a74f32"/>
     </linearGradient>
   </defs>
-  <rect x="16" y="16" width="480" height="480" rx="120" fill="#050a14" stroke="#1e3a5f" stroke-width="4"/>
-  <line x1="256" y1="120" x2="256" y2="392" stroke="#22d3ee" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.5"/>
-  <circle cx="176" cy="356" r="20" fill="#3b82f6"/>
-  <path d="M176 336 L176 236 A80 80 0 0 1 336 236 L336 336" stroke="url(#olt1)" stroke-width="36" stroke-linecap="round" fill="none"/>
-  <path d="M336 388 L312 344 L360 344 Z" fill="#22d3ee"/>
+  <rect x="16" y="16" width="480" height="480" rx="120" fill="#17231d" stroke="#42604f" stroke-width="4"/>
+  <line x1="256" y1="116" x2="256" y2="396" stroke="#f4f0e6" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 26" opacity="0.55"/>
+  <path d="M176 356 L176 236 A80 80 0 0 1 336 236 L336 344" stroke="url(#olt-turn)" stroke-width="38" stroke-linecap="round" fill="none"/>
+  <circle cx="176" cy="356" r="19" fill="#42604f"/>
+  <path d="M336 392 L311 346 L361 346 Z" fill="#a74f32"/>
 </svg>

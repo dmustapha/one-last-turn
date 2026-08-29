@@ -6,7 +6,11 @@ export const dynamic = "force-dynamic";
 export const maxDuration = 10;
 
 export async function GET(): Promise<Response> {
-  const config = loadEnv(process.env);
+  // Validate only what the demo needs so a health probe never 500s on unrelated env
+  // (e.g. email/auth vars); any config failure degrades to a clean 503.
+  let config;
+  try { config = loadEnv(process.env, { validationScope: "demo" }); }
+  catch { return Response.json({ status: "not_ready", database: false }, { status: 503 }); }
   if (!config.databaseUrl) return Response.json({ status: "not_ready", database: false }, { status: 503 });
   const database = createDatabaseClient({ connectionString: config.databaseUrl, max: 1 });
   try {

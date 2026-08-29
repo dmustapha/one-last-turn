@@ -1,10 +1,10 @@
 // File: src/app/components/case-timeline.tsx
 import type { DemoCaseView } from "../../application/demo-controller";
 const stages = [
-  ["authorized", "Boundary authorized"], ["strategy_running", "Mind A · Strategy running"],
-  ["strategy_ready", "Strategy prepared"], ["returned", "Return submitted"],
-  ["response_running", "Mind B · Response running"], ["response_ready", "Remembered response"],
-  ["closed", "Receipt closed"],
+  ["authorized", "Boundary authorized", undefined], ["strategy_running", "Mind A · Strategy running", "a"],
+  ["strategy_ready", "Strategy prepared", "a"], ["returned", "Return submitted", undefined],
+  ["response_running", "Mind B · Response running", "b"], ["response_ready", "Remembered response", "b"],
+  ["closed", "Receipt closed", undefined],
 ] as const;
 const order = ["draft", ...stages.map(([state]) => state), "failed"];
 type StageStatus = "complete" | "current" | "pending" | "stopped";
@@ -24,12 +24,19 @@ function stageStatus(view: DemoCaseView, index: number): StageStatus {
   return index < current ? "complete" : index === current ? "current" : "pending";
 }
 
+const tickLabel: Record<StageStatus, string> = {
+  complete: "Done", current: "In progress", pending: "Waiting", stopped: "Stopped",
+};
+
 export function CaseTimeline({ view }: { view: DemoCaseView }) {
-  return <ol className="timeline" aria-label="Case timeline">{stages.map(([state, label]) => {
+  return <ol className="timeline" aria-label="Case timeline">{stages.map(([state, label, phase]) => {
     const index = order.indexOf(state);
     const status = stageStatus(view, index);
-    return <li key={state} data-status={status} aria-current={status === "current" ? "step" : undefined}>
-      <span>{String(index).padStart(2, "0")}</span><strong>{label}</strong><small>{status}</small>
+    return <li key={state} data-status={status} data-phase={phase}
+      aria-current={status === "current" ? "step" : undefined}>
+      <span className="idx">{String(index).padStart(2, "0")}</span>
+      <strong>{label}</strong>
+      <span className="tick">{tickLabel[status]}</span>
     </li>;
   })}</ol>;
 }
