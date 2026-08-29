@@ -1,0 +1,43 @@
+{
+  "name": "One Last Turn",
+  "tagline": "One private boundary. One remembered response. One last turn.",
+  "colorMode": "light-only",
+  "brandColor": "#42604f",
+  "accent": "#a74f32",
+  "ink": ["#ece5d5", "#f4f0e6", "#faf7f0", "#fffdf7", "#ffffff"],
+  "surfaceLabels": {
+    "surface0": "#ece5d5 — page ground (deeper paper)",
+    "surface1": "#f4f0e6 — paper base",
+    "surface2": "#faf7f0 — raised card",
+    "surface3": "#fffdf7 — raised inner element",
+    "surface4": "#ffffff — top / money-shot blockquote"
+  },
+  "textInk": "#17231d",
+  "textMuted": "#5c6b60",
+  "line": "#b9af99",
+  "semantic": {
+    "success": "#42604f",
+    "warning": "#a74f32",
+    "danger": "#8b2c20"
+  },
+  "fonts": {
+    "display": "Fraunces",
+    "body": "Public Sans",
+    "mono": "IBM Plex Mono"
+  },
+  "fontRationale": {
+    "display": "Fraunces — a variable 'old style' editorial display serif (soft + optical axes) built for literary/editorial mastheads; carries the restorative, human, letterpress feeling without reading as generic Georgia.",
+    "body": "Public Sans — the humanist sans from the U.S. Web Design System, purpose-built for public-trust government interfaces; reads as calm, legible, institutional-trustworthy, which fits community-care.",
+    "mono": "IBM Plex Mono — for provenance digests and receipts (git-hash / certificate-fingerprint idiom); signals 'verifiable evidence, private text withheld'."
+  },
+  "radii": { "sm": 12, "md": 16, "lg": 26, "xl": 999 },
+  "shadowPhilosophy": "soft-elevation",
+  "signatureElement": "Reserved clay reveal — clay (#a74f32) appears exactly once in a case's lifecycle, at the moment Mind B completes the remembered response (blockquote left-rule + the 'remembered' evidence badge + the A→B explainer's turn). The single moment that proves the product is the single moment the warm accent arrives.",
+  "logoPath": "public/logo.svg",
+  "references": [
+    "U.S. Web Design System (Public Sans) — public-trust, high-legibility civic interfaces",
+    "Editorial serif+sans pairing (literary mastheads) — ruled-paper measure, generous leading",
+    "Provenance/receipt UIs (git commit hashes, Stripe receipts, certificate fingerprints) — monospace digest as trust signal",
+    "Restorative-justice / community-care print material — warm paper grounds, calm institutional tone, no alarm-red dashboards"
+  ]
+}
