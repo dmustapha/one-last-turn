@@ -65,10 +65,11 @@ function sentMessageId(value: unknown): string {
 async function waitForTerminalRows(input: {
   transport: MindTransport; alias: string; beforeCount: number; delayMs: number;
 }): Promise<HistoryRow[]> {
-  for (let attempt = 0; attempt < 4; attempt += 1) {
+  const attempts = 30;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
     const rows = await readCompleteHistory({ transport: input.transport, alias: input.alias });
     if (rows.length >= input.beforeCount + 2) return rows;
-    if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, input.delayMs));
+    if (attempt < attempts - 1) await new Promise((resolve) => setTimeout(resolve, input.delayMs));
   }
   throw new Error("MINDS_REPLY_NOT_IN_HISTORY");
 }
@@ -176,14 +177,15 @@ export async function executeMindWork<T>(input: {
     }
   }
   try {
+    const anchor = before[before.length - 1];
     await input.transport.waitForReply({
       alias: input.alias, sentMessageText: input.prompt,
-      ...(before[0] ? { afterFingerprint: before[0].fingerprint } : {}), timeoutMs: 180_000,
+      ...(anchor ? { afterFingerprint: anchor.fingerprint } : {}), timeoutMs: 180_000,
     });
   } catch { /* the send already succeeded; recover with bounded read-only history only */ }
   let after: HistoryRow[];
   try { after = await waitForTerminalRows({ transport: input.transport, alias: input.alias,
-    beforeCount: before.length, delayMs: input.recoveryDelayMs ?? 1_500 }); }
+    beforeCount: before.length, delayMs: input.recoveryDelayMs ?? 5_000 }); }
   catch (error) {
     if (ambiguousSend) throw new Error("MINDS_SEND_AMBIGUOUS");
     throw error;
@@ -197,7 +199,22 @@ export async function executeMindWork<T>(input: {
   });
   await assertAuthoritativeRoster(input);
   await input.journal?.recordExchange(exchange.evidence);
-  const artifact = input.parse(exchange.replyText);
+  let artifact: T;
+  try {
+    artifact = input.parse(exchange.replyText);
+  } catch (error) {
+    // Redacted diagnostic only: structural shape plus a digest, never raw provider text.
+    const text = exchange.replyText ?? "";
+    const fence = String.fromCharCode(96).repeat(3);
+    console.error("[minds-worker] artifact parse failed", {
+      code: error instanceof Error ? error.message : "UNKNOWN",
+      replyLength: text.length,
+      hasOpenBrace: text.includes("{"),
+      hasCodeFence: text.includes(fence),
+      replyDigest: sha256(text).slice(0, 12),
+    });
+    throw error;
+  }
   input.validate?.(artifact);
   return { artifact, evidence: exchange.evidence };
 }

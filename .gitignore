@@ -26,3 +26,6 @@ AGENTS.md
 # OS/editor noise
 .DS_Store
 *.swp
+
+# Demo video tooling (hosted on YouTube)
+video/
