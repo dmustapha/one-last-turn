@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   title: "One Last Turn",
   description:
     "A finite post-appeal community handoff. A persistent Minds agent carries a private care boundary across two separate processes to complete one controlled returning-member response.",
+  other: { "ory-verify": "orynth-2dc62884d1db4ae6949eec1e27d972cc" },
   icons: { icon: "/icon.svg" },
   openGraph: {
     title: "One Last Turn",
